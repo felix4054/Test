@@ -1,0 +1,12 @@
+{
+    "user": [
+        {
+            "login": "qwerty",
+            "email": "avkavalchuk@gmail.com",
+            "name": "QW",
+            "salt": "165d688311",
+            "password_hash": "22e33fbcd22fb8ff17e9afb4d880fca8",
+            "session_key": "94abca1fc2e58aaa547e"
+        }
+    ]
+}

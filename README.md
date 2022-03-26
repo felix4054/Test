@@ -1,1 +1,1 @@
-# Test
+# Test PHP, Json, Ajax, Composer, Bootstrap.
