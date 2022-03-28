@@ -36,7 +36,7 @@ class UserController extends AppController
     //     return Router::redirect('/profile');
     // } 
 
-   
+
     /**
      * авторизаци, метод вызывается через ajax
      * возвращает json
@@ -44,61 +44,62 @@ class UserController extends AppController
     public function login()
     {
         $users = new Users();
-        // валидация полей и проверка соответствия пароля
-        $activateUser = $users->loginUser($_POST['data']);
-        // print_r($activateUser);
-        if ($activateUser === true) {
-            // получаем номер пользователя в массиве
-            $numberUser = (int)$users->searchObjectNumberByLogin($_POST['data']['login']);
-            // print_r($numberUser);
-            // если чекбокс есть, то создаём куки, если нет то только сессию
-            if (isset($_POST['check'])) {
-                Cookie::create($users, $numberUser);
-            }
-            // создаем сессию и пишем в базу
-            Session::create($users, $numberUser);
 
-            self::responseJson([
-                'success' => true,
-                'message' => 'добро пожаловать',
-            ]);
-            
-            
-            // Router::redirect('/profile');
-            
-        } else {
-            // Router::error('500');
+        if ($this->isAjax() == true) {
+            // валидация полей и проверка соответствия пароля
+            $activateUser = $users->loginUser($_POST['data']);
             // print_r($activateUser);
-           
-            self::responseJson([
-                'success' => false,
-                'message' => implode('<br>', $activateUser),
-            ]);
+            if ($activateUser === true) {
+                // получаем номер пользователя в массиве
+                $numberUser = (int)$users->searchObjectNumberByLogin($_POST['data']['login']);
+                // print_r($numberUser);
+                // если чекбокс есть, то создаём куки, если нет то только сессию
+                if (isset($_POST['check'])) {
+                    Cookie::create($users, $numberUser);
+                }
+                // создаем сессию и пишем в базу
+                Session::create($users, $numberUser);
+
+                self::responseJson([
+                    'success' => true,
+                    'message' => 'добро пожаловать',
+                ]);
+
+
+                // Router::redirect('/profile');
+
+            } else {
+                // Router::error('500');
+                // print_r($activateUser);
+
+                self::responseJson([
+                    'success' => false,
+                    'message' => implode('<br>', $activateUser),
+                ]);
+            }
         }
-        
     }
 
     public function register()
     {
         $users = new Users();
-        $registerUser = $users->registrationUser($_POST['data']);
-        // print_r($registerUser);
-        if ($registerUser === true) {
-
-            self::responseJson([
-                'success' => true,
-                'message' => 'спасибо за регистрацию, теперь вы можете авторизоваться',
-            ]);
-            
-            
-        } else {
-            // Router::error('500');
+        if ($this->isAjax() == true) {
+            $registerUser = $users->registrationUser($_POST['data']);
             // print_r($registerUser);
-            self::responseJson([
-                'success' => false,
-                'message' => implode('<br>', $registerUser),
-            ]);
-            
+            if ($registerUser === true) {
+
+                self::responseJson([
+                    'success' => true,
+                    'message' => 'спасибо за регистрацию, теперь вы можете авторизоваться',
+                ]);
+            } else {
+                // Router::error('500');
+                // print_r($registerUser);
+                self::responseJson([
+                    'success' => false,
+                    'message' => implode('<br>', $registerUser),
+                ]);
+            }
         }
     }
 
