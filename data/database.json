@@ -1,1 +1,12 @@
-{"user":[{"login":"qwerty","email":"avkavalchuk@gmail.com","name":"QW","salt":"165d688311","password_hash":"22e33fbcd22fb8ff17e9afb4d880fca8","session_key":"a76dd294248d8d59f07c"},{"login":"123456","email":"avkavalchuk1@gmail.com","name":"qw","salt":"9389020300","password_hash":"3179fb04918372e201e7a5b7cc2c7e63"}]}
+{
+    "user": [
+        {
+            "login": "qwerty",
+            "email": "avkavalchuk@gmail.com",
+            "name": "QW",
+            "salt": "165d688311",
+            "password_hash": "22e33fbcd22fb8ff17e9afb4d880fca8",
+            "session_key": "a76dd294248d8d59f07c"
+        }
+    ]
+}
