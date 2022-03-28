@@ -287,11 +287,20 @@ class Users
      */
     public function validateEmale($email)
     {
-        if (preg_match('/.+@.+\..+/i', $email) == 0) {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
             $this->errorsValidate[] = '"' . $email . '" не соответствует формату email';
             return false;
+        } else {
+            return true;
         }
-        return true;
+
+        //'/.+@.+\..+/iu' 
+
+        // if (preg_match('/\A[^@]+@([^@\.]+\.)+[^@\.]+\z/iu', $email) == 0) {
+        //     $this->errorsValidate[] = '"' . $email . '" не соответствует формату email';
+        //     return false;
+        // }
+        // return true;
     }
 
     /**

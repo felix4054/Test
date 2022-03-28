@@ -46,7 +46,7 @@ class UserController extends AppController
         $users = new Users();
         // валидация полей и проверка соответствия пароля
         $activateUser = $users->loginUser($_POST['data']);
-        // // print_r($activateUser);
+        // print_r($activateUser);
         if ($activateUser === true) {
             // получаем номер пользователя в массиве
             $numberUser = (int)$users->searchObjectNumberByLogin($_POST['data']['login']);
