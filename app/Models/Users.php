@@ -175,11 +175,11 @@ class Users
             $newUser = $this->dbUsers;
             // print_r($newUser);
             $newUser['user'][] = [
-                'login' => $data["login"],
-                'email' => $data["email"],
-                'name' => $data["name"],
+                'login' => trim($data["login"]),
+                'email' => trim($data["email"]),
+                'name' => trim($data["name"]),
                 'salt' => $salt,
-                'password_hash' => $this->makeSaltyPassword($data["password"], $salt)
+                'password_hash' => $this->makeSaltyPassword(trim($data["password"]), $salt)
             ];
             //сохраняем нового пользователя
             file_put_contents(Db::getDbPatch()['Users'], json_encode($newUser));
@@ -194,6 +194,7 @@ class Users
      */
     public function validateForRegister($data)
     {
+       
         // проверка на длину и пустоту
         $data = $this->validateNotNull($data);
         $this->validateLogin($data['login']);
@@ -233,7 +234,7 @@ class Users
         //     return true;
         // }
 
-        if (!preg_match("/^(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).*$/", $password) || strlen($password) <= 6) {
+        if (!preg_match("/^(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).*$/i", $password) || strlen($password) <= 6) {
             return $this->errorsValidate[] = 'Пароль обязательно должен состоять из букв и цифр длинной не менее 6 символов и не содержать пробелов. ';
         } else {
             return true;
@@ -256,7 +257,7 @@ class Users
     public function errorName($name) //выявляет ошибки в поле Ник
     {
         
-        if (!preg_match("/^[a-zA-Z]{2}$/", $name)) {
+        if (!preg_match("/^[a-zA-Z]{2}$/i", $name)) {
             return $this->errorsValidate[] = 'Имя должно состоять только из букв длинной 2 символа и не содержать пробелов. ';
         } else {
             return true;
@@ -309,16 +310,18 @@ class Users
         // } else {
         //     return true;
         // }
-
+             
         if (strlen(($login)) < 6) {
             return $this->errorsValidate[] = 'Длина логина должна составлять не менее 6 символов. ';
-        } elseif (!preg_match("/^[a-zA-Z0-9]+$/", $login)) {
+        } elseif (!preg_match("/^[a-zA-Z0-9]+$/i", $login)) {
             return $this->errorsValidate[] = 'Неверный ввод логина, не используйте пробелы и спецсимволы. ';
-        } else {
+        } 
+        else {
+            
             return true;
         }
 
-        // $login = trim($login);
+        
         // if (strlen($login) <= 5) {
         //     $this->errorsValidate[] = 'Логин не должен быть короче 6 символов';
         // }
@@ -333,7 +336,6 @@ class Users
      */
     public function validateEmale($email)
     {
-
         if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
             $this->errorsValidate[] = '"' . $email . '" не соответствует формату email';
             return false;
