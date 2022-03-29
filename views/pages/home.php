@@ -18,6 +18,10 @@ Page::part("header");
     </p>
 </div>
 
-</body>
+<?php
+Page::part("footer");
+?>
 
-</html>
+<!-- </body>
+
+</html> -->

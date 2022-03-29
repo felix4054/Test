@@ -194,54 +194,84 @@ class Users
      */
     public function validateForRegister($data)
     {
-         // проверка на длину и пустоту
-         $data = $this->validateNotNull($data);
-         $this->validateLogin($data['login']);
-         $this->errorPassword($data['password']);
+        // проверка на длину и пустоту
+        $data = $this->validateNotNull($data);
+        $this->validateLogin($data['login']);
+        $this->errorPassword($data['password']);
         $this->errorName($data['name']);
-         // проверяем формат email
-         $this->validateEmale($data['email']);
-         //меняем спецсимволы на html сущности
-         $data = $this->screening($data);
-         // сравниваем пароль и подтверждение
-         $this->validatePassword($data['password'], $data['confirm_password']);
-         // проверяем уникальность логина
-         $this->validateUniqueLogin($data['login']);
-         // проверяем уникальность емайл
-         $this->validateUniqueEmail($data['email']);
+        // проверяем формат email
+        $this->validateEmale($data['email']);
+        //меняем спецсимволы на html сущности
+        $data = $this->screening($data);
+        // сравниваем пароль и подтверждение
+        $this->validatePassword($data['password'], $data['confirm_password']);
+        // проверяем уникальность логина
+        $this->validateUniqueLogin($data['login']);
+        // проверяем уникальность емайл
+        $this->validateUniqueEmail($data['email']);
     }
 
+    // function t_input($data) {
+    //     $data = trim($data);
+    //     $data = stripslashes($data);
+    //     $data = htmlspecialchars($data);
+    //     return $data;
+    // }
 
-    public function errorPassword($password) 
+
+    public function errorPassword($password)
     {
-        $reg = "/[0-9][a-z]|[a-z][0-9]/ui";
-        $passChek = preg_match($reg, str_replace(' ', '', $password));
-        $passCount = strlen(str_replace(' ', '', $password));
+        // if (strlen($password) < 6) {
+        //     return $this->errorsValidate[] = 'пароль должен содержать 6 и более символов';
+        // } elseif (!preg_match('/\d/', $password)) {
+        //     return $this->errorsValidate[] = 'пароль должен содержать хотя бы одну цифру';
+        // } elseif (!preg_match('/\D/', $password)) {
+        //     return $this->errorsValidate[] = 'пароль должен содержать хотя бы одну букву';
+        // } elseif (preg_match('% +%', $password)) {
+        //     return $this->errorsValidate[] = 'пароль не должен содержать пробельных символов';
+        // } else {
+        //     return true;
+        // }
 
-        if ($passChek == 1 && $passCount >= 6) {
-            return true;
-        } elseif ($passChek != 1 && $passCount >= 6) {
-            return $this->errorsValidate[] = 'Пароль должен состоять из букв и чисел!';
-        } elseif ($passChek == 1 && $passCount < 6) {
-            return $this->errorsValidate[] = "Пароль должен быть не менее 6 символов!";
+        if (!preg_match("/^(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).*$/", $password) || strlen($password) <= 6) {
+            return $this->errorsValidate[] = 'Пароль обязательно должен состоять из букв и цифр длинной не менее 6 символов и не содержать пробелов. ';
         } else {
-            return $this->errorsValidate[] = "Пароль: ввести не менее 6 символов и использовать слова и цифры!";
+            return true;
         }
 
+        // $reg = "/[0-9][a-z]|[a-z][0-9]/ui";
+        // $passChek = preg_match($reg, str_replace(' ', '', $password));
+        // $passCount = strlen(str_replace(' ', '', $password));
+        // if ($passChek == 1 && $passCount >= 6) {
+        //     return true;
+        // } elseif ($passChek != 1 && $passCount >= 6) {
+        //     return $this->errorsValidate[] = 'Пароль должен состоять из букв и чисел!';
+        // } elseif ($passChek == 1 && $passCount < 6) {
+        //     return $this->errorsValidate[] = "Пароль должен быть не менее 6 символов!";
+        // } else {
+        //     return $this->errorsValidate[] = "Пароль: ввести не менее 6 символов и использовать слова и цифры!";
+        // }
     }
 
     public function errorName($name) //выявляет ошибки в поле Ник
     {
-        $regForName = "/[a-z][a-z]/ui";
-        $nameChek = preg_match($regForName, $name);
-        $nickLength = strlen($name);
-        if ($nameChek != 1 || $nickLength != 2 || ($nameChek != 1 && $nickLength != 2)) {
-            return $this->errorsValidate[] = "Имя: должно состоять из 2 символов, используйте только буквы!";
+        
+        if (!preg_match("/^[a-zA-Z]{2}$/", $name)) {
+            return $this->errorsValidate[] = 'Имя должно состоять только из букв длинной 2 символа и не содержать пробелов. ';
         } else {
             return true;
         }
+
+        // $regForName = "/[a-z][a-z]/ui";
+        // $nameChek = preg_match($regForName, $name);
+        // $nickLength = strlen($name);
+        // if ($nameChek != 1 || $nickLength != 2 || ($nameChek != 1 && $nickLength != 2)) {
+        //     return $this->errorsValidate[] = "Имя: должно состоять из 2 символов, используйте только буквы!";
+        // } else {
+        //     return true;
+        // }
     }
-    
+
     /**
      * возвращает номер объекта в массиве объектов БД
      * @param string $login
@@ -268,16 +298,32 @@ class Users
     /**
      * Summary of validateLogin
      * @param mixed $login
-     * @return bool
+     * @return bool|string
      */
     public function validateLogin($login)
     {
-        $login = trim($login);
-        if (strlen($login) <= 5) {
-            $this->errorsValidate[] = 'Логин не должен быть короче 6 символов';
+        // if (strlen($login) < 6) {
+        //     return $this->errorsValidate[] = 'логин должен содержать 6 и более символов';
+        // } elseif (preg_match('% +%', $login)) {
+        //     return $this->errorsValidate[] = 'логин не должен содержать пробельных символов';
+        // } else {
+        //     return true;
+        // }
+
+        if (strlen(($login)) < 6) {
+            return $this->errorsValidate[] = 'Длина логина должна составлять не менее 6 символов. ';
+        } elseif (!preg_match("/^[a-zA-Z0-9]+$/", $login)) {
+            return $this->errorsValidate[] = 'Неверный ввод логина, не используйте пробелы и спецсимволы. ';
+        } else {
+            return true;
         }
 
-        return true;
+        // $login = trim($login);
+        // if (strlen($login) <= 5) {
+        //     $this->errorsValidate[] = 'Логин не должен быть короче 6 символов';
+        // }
+
+        // return true;
     }
 
     /**
@@ -287,6 +333,7 @@ class Users
      */
     public function validateEmale($email)
     {
+
         if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
             $this->errorsValidate[] = '"' . $email . '" не соответствует формату email';
             return false;

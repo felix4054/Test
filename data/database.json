@@ -6,7 +6,14 @@
             "name": "QW",
             "salt": "165d688311",
             "password_hash": "22e33fbcd22fb8ff17e9afb4d880fca8",
-            "session_key": "a76dd294248d8d59f07c"
+            "session_key": "8548f6078b89b0e17585"
+        },
+        {
+            "login": "123456",
+            "email": "1avkavalchuk@gmail.com",
+            "name": "AS",
+            "salt": "493b8399fb",
+            "password_hash": "25e4ad3eb887264dff809250bf5a6ede"
         }
     ]
 }

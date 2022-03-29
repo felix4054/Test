@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <title>Manao - Auth</title>
     <link rel="stylesheet" href="/vendor/components/bootstrap/css/bootstrap.min.css" />
+    <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="/assets/css/main.css" />
 </head>
 

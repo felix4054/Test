@@ -56,7 +56,7 @@ class UserController extends AppController
                 // если чекбокс есть, то создаём куки, если нет то только сессию
                 if (isset($_POST['check'])) {
                     Cookie::create($users, $numberUser);
-                }
+                } 
                 // создаем сессию и пишем в базу
                 Session::create($users, $numberUser);
 
@@ -77,12 +77,15 @@ class UserController extends AppController
                     'message' => implode('<br>', $activateUser),
                 ]);
             }
+        } else {
+            exit;
         }
     }
 
     public function register()
     {
         $users = new Users();
+
         if ($this->isAjax() == true) {
             $registerUser = $users->registrationUser($_POST['data']);
             // print_r($registerUser);
@@ -100,6 +103,8 @@ class UserController extends AppController
                     'message' => implode('<br>', $registerUser),
                 ]);
             }
+        } else {
+            exit;
         }
     }
 

@@ -1,6 +1,6 @@
 <footer class="container">
     <hr>
-    Copyright
+    © Copyright 2022
 </footer>
 <script src="/vendor/components/jquery/jquery.min.js"></script>
 <script src="/vendor/components/bootstrap/js/bootstrap.bundle.min.js"></script>

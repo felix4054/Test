@@ -25,6 +25,11 @@ Page::part("header");
 
     </form>
 </div>
-</body>
 
-</html>
+<?php
+Page::part("footer");
+?>
+
+<!-- </body>
+
+</html> -->
