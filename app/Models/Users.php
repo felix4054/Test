@@ -160,10 +160,11 @@ class Users
      */
     public function registrationUser($data)
     {
+        //$this->screening($data);
         // валидация принятых данных
         $this->validateForRegister($data);
         //создание обработчика ошибок
-        // $error = new ErrorHandler();
+        
 
         // если есть ошибки валидации, передаем массив ошибок
         // если ошибок нет то добавляем поля в объект БД и сохраняем файл
@@ -175,11 +176,11 @@ class Users
             $newUser = $this->dbUsers;
             // print_r($newUser);
             $newUser['user'][] = [
-                'login' => trim($data["login"]),
-                'email' => trim($data["email"]),
-                'name' => trim($data["name"]),
+                'login' => trim($data['login']),
+                'email' => trim($data['email']),
+                'name' => trim($data['name']),
                 'salt' => $salt,
-                'password_hash' => $this->makeSaltyPassword(trim($data["password"]), $salt)
+                'password_hash' => $this->makeSaltyPassword(trim($data['password']), $salt)
             ];
             //сохраняем нового пользователя
             file_put_contents(Db::getDbPatch()['Users'], json_encode($newUser));
@@ -317,7 +318,6 @@ class Users
             return $this->errorsValidate[] = 'Неверный ввод логина, не используйте пробелы и спецсимволы. ';
         } 
         else {
-            
             return true;
         }
 
