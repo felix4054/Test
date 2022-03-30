@@ -22,12 +22,12 @@ Page::part("header");
        
         <div class="form-group">
             <label>Логин</label>
-            <input type="text" class="form-control" name="data[login]" placeholder="Введите ваш логин">
+            <input type="text" class="form-control" id="login" name="data[login]" placeholder="Введите ваш логин">
             <!-- <small id="pasAJAX" class="form-text text-muted"></small> -->
         </div>
         <div class="form-group">
             <label>Пароль</label>
-            <input type="password" class="form-control" name="data[password]" placeholder="Введите ваш пароль" >
+            <input type="password" class="form-control"id="password" name="data[password]" placeholder="Введите ваш пароль" >
         </div>
         <div class="form-check">
             <input type="checkbox" class="form-check-input" name="check" id="exampleCheck1">

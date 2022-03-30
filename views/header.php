@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <title>Manao - Auth</title>
     <link rel="stylesheet" href="/vendor/components/bootstrap/css/bootstrap.min.css" />
     <link rel="shortcut icon" href="/favicon.ico">

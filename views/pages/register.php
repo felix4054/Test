@@ -30,19 +30,19 @@ Page::part("header");
         </div>
         <div class="form-group">
             <label>Пароль</label>
-            <input type="password" class="form-control" name="data[password]" placeholder="Введите ваш пароль">
+            <input type="password" class="form-control" id="password" name="data[password]" placeholder="Введите ваш пароль">
         </div>
         <div class="form-group">
             <label>Подтверждение пароля</label>
-            <input type="password" class="form-control" name="data[confirm_password]" placeholder="Подтвердите ваш пароль">
+            <input type="password" class="form-control"  id="confirm_password" name="data[confirm_password]" placeholder="Подтвердите ваш пароль">
         </div>
         <div class="form-group">
             <label>Email </label>
-            <input type="email" class="form-control" name="data[email]" placeholder="введите ваш email">
+            <input type="email" class="form-control" id="email" name="data[email]" placeholder="введите ваш email">
         </div>
         <div class="form-group">
             <label>Имя</label>
-            <input type="text" class="form-control" name="data[name]" placeholder="Введите ваше имя ">
+            <input type="text" class="form-control" id="name" name="data[name]" placeholder="Введите ваше имя ">
             <!-- <small id="emailHelp" class="form-text text-muted">Мы никогда не будем делиться вашей электронной почтой с кем-либо еще.</small> -->
         </div>
 

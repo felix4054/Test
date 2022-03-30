@@ -1,4 +1,19 @@
 $(document).ready(function () {
+
+  let login = document.getElementById("login");
+  let password = document.getElementById("password");
+
+  login.oninput = trimLogin;
+  password.oninput = trimPass;
+
+  function trimLogin() {
+    login.value = login.value.trim();
+  }
+
+  function trimPass() {
+    password.value = password.value.trim();
+  }
+  
   // обработка кнопки авторизации
   $("#login-button").click(function (event) {
     event.preventDefault();
